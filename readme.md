@@ -1,6 +1,8 @@
 # Term deposit calculator
 
-This term deposit calculator is written in ruby
+This term deposit calculator is written in ruby.
+
+It only returns whole dollar amounts, the same behaviour as: https://www.bendigobank.com.au/calculators/deposit-and-savings/ though this can easily be changed as the raw calculated value is preserved until presentation time
 
 ## Running the tests
 
