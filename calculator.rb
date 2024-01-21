@@ -17,7 +17,7 @@ class Calculator
       years_remaining = @months / BigDecimal(12)
 
       until years_remaining <= 0
-        period_interest = balance * (@rate / 100)
+        period_interest = balance * @rate / 100 * years_remaining.clamp(0, 1)
         interest_paid += period_interest
         balance += period_interest
 
