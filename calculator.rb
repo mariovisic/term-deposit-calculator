@@ -23,11 +23,9 @@ class Calculator
       rate = @rate / BigDecimal(12)
     end
 
-    until periods <= 0
-      period_interest = (balance * rate / 100 * periods.clamp(0, 1))
+    periods.times do
+      period_interest = (balance * rate / 100)
       balance += period_interest
-
-      periods -= 1
     end
 
     balance.round(0)
