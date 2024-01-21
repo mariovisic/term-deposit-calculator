@@ -1,20 +1,20 @@
 require 'bigdecimal'
 
 class Calculator
-  def initialize(principle, rate, months, interest_paid)
+  def initialize(principle, rate, years, interest_paid)
     @principle = BigDecimal(principle)
     @rate = BigDecimal(rate, 2)
-    @months = months
+    @years = years
     @interest_paid = interest_paid
   end
 
   def calculate
     if @interest_paid == :at_maturity
-      balance = @principle * (1 + @rate / 100 * @months / BigDecimal(12))
+      balance = @principle * (1 + @rate / 100 * @years)
     elsif @interest_paid == :annually
       balance = @principle
       interest_paid = BigDecimal(0)
-      years_remaining = @months / BigDecimal(12)
+      years_remaining = @years
 
       until years_remaining <= 0
         period_interest = balance * @rate / 100 * years_remaining.clamp(0, 1)
