@@ -11,20 +11,27 @@ class Calculator
   def calculate
     if @interest_paid == :at_maturity
       balance = @principle * (1 + @rate / 100 * @years)
-    elsif @interest_paid == :annually
+    elsif @interest_paid == :annually || @interest_paid == :monthly
       balance = @principle
       interest_paid = BigDecimal(0)
-      years_remaining = @years
 
-      until years_remaining <= 0
-        period_interest = balance * @rate / 100 * years_remaining.clamp(0, 1)
+      if @interest_paid == :annually
+        periods_remaining = @years
+        rate = @rate
+      else
+        periods_remaining = @years * 12
+        rate = @rate / BigDecimal(12)
+      end
+
+      until periods_remaining <= 0
+        period_interest = (balance * rate / 100 * periods_remaining.clamp(0, 1))
         interest_paid += period_interest
         balance += period_interest
 
-        years_remaining -= 1
+        periods_remaining -= 1
       end
     end
 
-    balance.truncate.to_i
+    balance.round(0)
   end
 end
