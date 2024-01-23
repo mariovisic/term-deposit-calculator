@@ -11,7 +11,7 @@ class TestCalculator < Minitest::Test
 
   def test_at_maturity_with_precise_rate
     result = Calculator.new(10_000, 2.22, 3, :at_maturity).calculate
-    assert_equal(10_660, result)
+    assert_equal(10_666, result)
   end
 
   def test_annual_interest_paid

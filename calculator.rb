@@ -3,7 +3,7 @@ require 'bigdecimal'
 class Calculator
   def initialize(principle, rate, years, interest_paid)
     @principle = BigDecimal(principle)
-    @rate = BigDecimal(rate, 2)
+    @rate = BigDecimal(rate, 4)
     @years = years
     @interest_paid = interest_paid
   end
