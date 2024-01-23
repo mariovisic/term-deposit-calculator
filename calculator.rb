@@ -11,20 +11,14 @@ class Calculator
   def calculate
     balance = @principle
 
-    case @interest_paid
-    when :at_maturity
-      periods = 1
-      rate = @rate * @years
-    when :annually
-      periods = @years
-      rate = @rate
-    when :quarterly
-      periods = @years * 4
-      rate = @rate / BigDecimal(4)
-    when :monthly
-      periods = @years * 12
-      rate = @rate / BigDecimal(12)
+    periods = case @interest_paid
+    when :at_maturity then 1
+    when :annually then @years
+    when :quarterly then @years * 4
+    when :monthly then @years * 12
     end
+
+    rate = @rate / periods * @years
 
     periods.times do
       period_interest = (balance * rate / 100)
