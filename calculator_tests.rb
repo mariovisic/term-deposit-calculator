@@ -58,4 +58,22 @@ class TestCalculator < Minitest::Test
       Calculator.new(40_000, 0, 5, :monthly).calculate
     end
   end
+
+  def test_zero_term_years
+    assert_raises Calculator::InvalidTermYears do
+      Calculator.new(40_000, 2.22, 0, :monthly).calculate
+    end
+  end
+
+  def test_negative_term_years
+    assert_raises Calculator::InvalidTermYears do
+      Calculator.new(40_000, 2.22, -20, :monthly).calculate
+    end
+  end
+
+  def test_non_whole_term_years
+    assert_raises Calculator::InvalidTermYears do
+      Calculator.new(40_000, 2.22, 20.2, :monthly).calculate
+    end
+  end
 end

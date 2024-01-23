@@ -5,11 +5,12 @@ class Calculator
   InvalidInterestPaidType = Class.new(ArgumentError)
   InvalidPrinciple = Class.new(ArgumentError)
   InvalidInterestRate = Class.new(ArgumentError)
+  InvalidTermYears = Class.new(ArgumentError)
 
-  def initialize(principle, rate, years, interest_paid)
+  def initialize(principle, rate, term_years, interest_paid)
     @principle = BigDecimal(principle)
     @rate = BigDecimal(rate, 4)
-    @years = years
+    @term_years = term_years
     @interest_paid = interest_paid
   end
 
@@ -20,12 +21,12 @@ class Calculator
 
     periods = case @interest_paid
     when :at_maturity then 1
-    when :annually then @years
-    when :quarterly then @years * 4
-    when :monthly then @years * 12
+    when :annually then @term_years
+    when :quarterly then @term_years * 4
+    when :monthly then @term_years * 12
     end
 
-    rate = @rate / periods * @years
+    rate = @rate / periods * @term_years
 
     periods.times do
       period_interest = (balance * rate / 100)
@@ -48,6 +49,10 @@ class Calculator
 
     if @rate <= 0
       raise InvalidInterestRate, "Interest Rate must be positive"
+    end
+
+    if @term_years <= 0 || @term_years.to_i != @term_years
+      raise InvalidTermYears, "Term years must be a whole number and positive"
     end
   end
 end
