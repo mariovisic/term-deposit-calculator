@@ -18,7 +18,10 @@ class Calculator
     when :annually
       periods = @years
       rate = @rate
-    else
+    when :quarterly
+      periods = @years * 4
+      rate = @rate / BigDecimal(4)
+    when :monthly
       periods = @years * 12
       rate = @rate / BigDecimal(12)
     end

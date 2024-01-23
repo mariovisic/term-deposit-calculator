@@ -23,4 +23,9 @@ class TestCalculator < Minitest::Test
     result = Calculator.new(15_000, 1.10, 5, :monthly).calculate
     assert_equal(15_848, result)
   end
+
+  def test_quarterly_interest_paid
+    result = Calculator.new(50_000, 6.15, 5, :quarterly).calculate
+    assert_equal(67_842, result)
+  end
 end
