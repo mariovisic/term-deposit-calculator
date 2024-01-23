@@ -76,4 +76,9 @@ class TestCalculator < Minitest::Test
       Calculator.new(40_000, 2.22, 20.2, :monthly).calculate
     end
   end
+
+  def test_float_whole_periods_number
+    result = Calculator.new(40_000, 2.22, 2.0, :monthly).calculate
+    assert_equal(41_814, result)
+  end
 end

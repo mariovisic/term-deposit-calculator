@@ -18,6 +18,7 @@ class Calculator
     validate
 
     balance = @principle
+    @term_years = @term_years.to_i
 
     periods = case @interest_paid
     when :at_maturity then 1
