@@ -8,7 +8,7 @@ class Calculator
   InvalidTermYears = Class.new(ArgumentError)
 
   def initialize(principle, rate, term_years, interest_paid)
-    @principle = BigDecimal(principle)
+    @principle = BigDecimal(principle, 10)
     @rate = BigDecimal(rate, 4)
     @term_years = term_years
     @interest_paid = interest_paid
