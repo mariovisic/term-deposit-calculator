@@ -28,4 +28,10 @@ class TestCalculator < Minitest::Test
     result = Calculator.new(50_000, 6.15, 5, :quarterly).calculate
     assert_equal(67_842, result)
   end
+
+  def test_invalid_interest_paid_type
+    assert_raises Calculator::InvalidInterestPaidType do
+      Calculator.new(50_000, 6.15, 5, :not_valid).calculate
+    end
+  end
 end

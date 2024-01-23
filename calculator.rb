@@ -1,6 +1,9 @@
 require 'bigdecimal'
 
 class Calculator
+  INTEREST_TYPES = %i(monthly quarterly annually at_maturity)
+  InvalidInterestPaidType = Class.new(ArgumentError)
+
   def initialize(principle, rate, years, interest_paid)
     @principle = BigDecimal(principle)
     @rate = BigDecimal(rate, 4)
@@ -9,6 +12,8 @@ class Calculator
   end
 
   def calculate
+    validate
+
     balance = @principle
 
     periods = case @interest_paid
@@ -26,5 +31,13 @@ class Calculator
     end
 
     balance.round(0)
+  end
+
+  private
+
+  def validate
+    if !INTEREST_TYPES.include?(@interest_paid)
+      raise InvalidInterestPaidType.new("Interest paid type should be one of: #{INTEREST_TYPES}")
+    end
   end
 end
