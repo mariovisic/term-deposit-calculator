@@ -3,6 +3,8 @@ require 'bigdecimal'
 class Calculator
   INTEREST_TYPES = %i(monthly quarterly annually at_maturity)
   InvalidInterestPaidType = Class.new(ArgumentError)
+  InvalidPrinciple = Class.new(ArgumentError)
+  InvalidInterestRate = Class.new(ArgumentError)
 
   def initialize(principle, rate, years, interest_paid)
     @principle = BigDecimal(principle)
@@ -37,7 +39,15 @@ class Calculator
 
   def validate
     if !INTEREST_TYPES.include?(@interest_paid)
-      raise InvalidInterestPaidType.new("Interest paid type should be one of: #{INTEREST_TYPES}")
+      raise InvalidInterestPaidType, "Interest paid type must be one of: #{INTEREST_TYPES}"
+    end
+
+    if @principle <= 0
+      raise InvalidPrinciple, "Principle must be positive and a whole number"
+    end
+
+    if @rate <= 0
+      raise InvalidInterestRate, "Interest Rate must be positive"
     end
   end
 end

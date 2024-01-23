@@ -34,4 +34,28 @@ class TestCalculator < Minitest::Test
       Calculator.new(50_000, 6.15, 5, :not_valid).calculate
     end
   end
+
+  def test_negative_principle
+    assert_raises Calculator::InvalidPrinciple do
+      Calculator.new(-40, 6.15, 5, :monthly).calculate
+    end
+  end
+
+  def test_zero_principle
+    assert_raises Calculator::InvalidPrinciple do
+      Calculator.new(0, 6.15, 5, :monthly).calculate
+    end
+  end
+
+  def test_negative_rate
+    assert_raises Calculator::InvalidInterestRate do
+      Calculator.new(40_000, -6.15, 5, :monthly).calculate
+    end
+  end
+
+  def test_zero_rate
+    assert_raises Calculator::InvalidInterestRate do
+      Calculator.new(40_000, 0, 5, :monthly).calculate
+    end
+  end
 end
